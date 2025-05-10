@@ -1,5 +1,6 @@
 # Planvel : 여행 계획 플랫폼
-
+- 25.05.05 - 25.05.16
+- 한세영, 변지민, 정현경
 - [프로젝트 문서(API 명세, 회의록 등)](https://veiled-foe-fd5.notion.site/2-1e577da8c8038015ad8cf4f60b8bea86?pvs=4)
 
 ### 기능
