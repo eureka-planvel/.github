@@ -24,7 +24,10 @@ planvel/
 │   └── Dockerfile
 ├── planvel-backend/
 │   └── Dockerfile
-├── planvel-frontend/   ← vscode live server
+├── planvel-admin-frontend
+│   └── Dockerfile
+├── planvel-user-frontend
+│   └── Dockerfile
 ├── nginx/
 │   └── default.conf       
 ├── uploads/               ← 정적 이미지 폴더
@@ -34,25 +37,59 @@ planvel/
 ### docker-compose.yml
 ```yml
 services:
+  admin-frontend:
+    build: ./planvel-admin-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - admin
+
+
+  user-frontend:
+    build: ./planvel-user-frontend
+    ports:
+      - "3002:80"
+    depends_on:
+      - user
+
+
   admin:
     build: ./planvel-admin
     ports: 
       - "8080:8080"
     volumes:
       - ./uploads:/uploads
-  main:
+
+  user:
     build: ./planvel-backend
     ports:
       - "8082:8080"
     volumes:
       - ./uploads:/uploads
+
   nginx:
     image: nginx:latest
     ports:
-      -"8081:80"
+      - "8081:80"
     volumes:
-      - ./uploads:/usr/share/nginx/html/uploads  # Nginx 기준 서빙 경로
+      - ./uploads:/usr/share/nginx/html/uploads
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+  
+  mysql:
+    image: mysql:8.0
+    container_name: planvel-mysql
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: planvel_db
+      MYSQL_USER: planvel
+      MYSQL_PASSWORD: planvel1234
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
 
 
 ```
