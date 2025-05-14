@@ -29,9 +29,11 @@ planvel/
 ├── planvel-user-frontend
 │   └── Dockerfile
 ├── nginx/
-│   └── default.conf       
+│   └── admin.conf       
 ├── uploads/               ← 정적 이미지 폴더
-└── docker-compose.yml
+└── docker-compose-admin.yml
+└── docker-compose-service.yml
+└── docker-compose-mysql.yml
 ```
 
 ### docker-compose.yml
